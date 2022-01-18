@@ -4,20 +4,12 @@ import * as ReactDOM from "react-dom";
 import { Machine, assign, actions, State } from "xstate";
 import { useMachine, asEffect } from "@xstate/react";
 import { inspect } from "@xstate/inspect";
-import { tdmDmMachine } from "./tdmClient";
-import { jaicpDmMachine } from "./jaicpClient";
 import { dmMachine } from "./dmColourChanger";
 
 import createSpeechRecognitionPonyfill from 'web-speech-cognitive-services/lib/SpeechServices/SpeechToText'
 import createSpeechSynthesisPonyfill from 'web-speech-cognitive-services/lib/SpeechServices/TextToSpeech';
 
 let dm = dmMachine
-if (process.env.REACT_APP_BACKEND === 'TDM') {
-    dm = tdmDmMachine
-} else if (process.env.REACT_APP_BACKEND === 'JAICP') {
-    dm = jaicpDmMachine
-}
-
 
 const { send, cancel } = actions
 
