@@ -73,10 +73,10 @@ project that you forked before:
   import { dmMachine } from "./dmAppointment";
   #+end_src
 - You will need to edit the state chart in ~./src/dmAppointment.ts~
-- In order to extend your context, make appropriate changes in
+- To extend your context, make appropriate changes in
   ~./src/react-app-env.d.ts~
 - You will need to extend the grammar (~const grammar~) to
-  understand more names, times and dates.
+  understand more titles, times and dates.
 - You will also need to create a similar grammar to understand "yes"
   and "no", but also "of course", "no way" etc.
 
@@ -103,7 +103,8 @@ like to meet.
 2. In the latter case the input should be parsed and X should be
    extracted and sent to the API.
 3. Based on the responce from the API, tell the user about the person,
-   and ask if they would like to meet them.
+   and ask if they would like to meet them. You might need to create
+   additional contextual attributes to store your data.
 4. If they would like to meet them, set the title of the meeting to
    "meeting with X" and proceed with asking about the day of the
    meeting (see the flowchart above).
