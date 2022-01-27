@@ -4,12 +4,11 @@ import * as ReactDOM from "react-dom";
 import { Machine, assign, actions, State } from "xstate";
 import { useMachine, asEffect } from "@xstate/react";
 import { inspect } from "@xstate/inspect";
-import { dmMachine } from "./dmColourChanger";
+import { dmMachine } from "./dmAppointment";
 
 import createSpeechRecognitionPonyfill from 'web-speech-cognitive-services/lib/SpeechServices/SpeechToText'
 import createSpeechSynthesisPonyfill from 'web-speech-cognitive-services/lib/SpeechServices/TextToSpeech';
 
-let dm = dmMachine
 
 const { send, cancel } = actions
 
@@ -29,19 +28,7 @@ const machine = Machine<SDSContext, any, SDSEvent>({
     type: 'parallel',
     states: {
         dm: {
-            ...dm
-        },
-
-        gui: {
-            initial: 'micOnly',
-            states: {
-                micOnly: {
-                    on: { SHOW_ALTERNATIVES: 'showAlternatives' },
-                },
-                showAlternatives: {
-                    on: { SELECT: 'micOnly' },
-                }
-            }
+            ...dmMachine
         },
 
         asrtts: {
@@ -264,6 +251,12 @@ function App() {
     const [current, send] = useMachine(machine, {
         devTools: true,
         actions: {
+
+            changeColour: asEffect((context) => {
+                document.body.style.background = context.recResult[0].utterance ;
+                /* console.log('Ready to receive a voice input.'); */
+            }),
+
             recStart: asEffect((context) => {
                 context.asr.start()
                 /* console.log('Ready to receive a voice input.'); */
