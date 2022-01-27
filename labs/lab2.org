@@ -2,7 +2,7 @@
 
 #+TITLE: Lab II. Basic dialogue management
 
-*  Getting started with development environment
+* Getting started with development environment
 
 ** Preflight step 1. Create Azure account and enable speech services
 1. Apply for free student credits
@@ -61,10 +61,10 @@
 - VG part :: Improve your app.
 
 ** Task 1. "Appointment"
-#+CAPTION: Finite state machine for creating an appointment
-[[https://raw.githubusercontent.com/vladmaraev/rasa101/master/flowchart.png]]
+#+CAPTION: Flowchart for creating an appointment
+[[./img/flow.svg]]
 
-In this task you will need to implement the finite state machine above.
+In this task you will need to implement the flowchart above.
 
 I have created a starting point for you, so you basically can use the
 project that you forked before:
@@ -80,54 +80,33 @@ project that you forked before:
 - You will also need to create a similar grammar to understand "yes"
   and "no", but also "of course", "no way" etc.
 
-** Task 2. "Intents"
-In this task you will need to change your app in such way that, you
-will not force users into creating the appointment, but rather offer
-them an open-ended choice, what to do.
+** Task 2. "Knowledge base"
+In this task you will need to interact with [[https://duckduckgo.com/api][DuckDuckGo Instant Answer
+API]] to get information about famous people that you (probably) would
+like to meet.
 
-- Start with an open-ended prompt, e.g. "What would you like to do?"
-- Let the users choose from "Appointment", "TODO item" and
-  "Timer". "Appointment" will lead to the state chart that you created
-  in Task 1, and "TODO item" and "Timer" should just contain a
-  corresponding welcome message.
-- You can code your "menu" in ~index.tsx~
-- For testing the transition you can create a simple grammar, but for
-  this assignments instead of grammar you will be using *RASA NLU*. See
-  below.
-  
-*** Creating RASA NLU service and updating the model
-1. You will need a [[https://www.heroku.com/home][Heroku account]]
-2. Deploy this template to Heroku: https://github.com/just-ai/rasa-heroku-template
-3. Read the documentation for the template. It explains how to add the
-   desired intents and re-deploy model.
-4. You will need to add intents for "Appointment", "TODO item" and
-   "Timer".
-5. Deploy the updated model.
 
-*** Invoking RASA from xstate
-1. Use the invocation in order to get the result from RASA: https://xstate.js.org/docs/guides/communication.html#invoking-promises
-2. The interface with RASA is already implemented in the bottom of
-   ~index.tsx~. Just change the ~rasaurl~ constant to the path to your
-   instance of RASA on Heroku server.
+*** Invoking API from XState
+1. Use the invocation in order to get the result from the API: https://xstate.js.org/docs/guides/communication.html#invoking-promises
+2. The interface with the API is already implemented in the bottom of
+   ~dmAppointment.ts~.
 3. You will need to implement appropriate actions and transitions for
    both ~onDone~ and ~onError~ events.
 
-*Note*: Heroku app will sleep after 30 minutes of not receiving any
-traffic. It will take a couple of minutes for it to wake up after the
-inactive period.
+*** Modifying the flow of the dialogue
+#+CAPTION: Full appointment flowchart
+[[./img/full-flow.svg]]
 
-*Note 2:* In my example of RASA service I use "cors-anywhere" proxy
-which now requires you to first open the page
-https://cors-anywhere.herokuapp.com/ and press the button there to use
-the proxy. Another possible workaround is to enable CORS in the last
-line of ~server.sh~ in RASA-Heroku app:
-#+begin_src sh
-rasa run --enable-api --port $PORT --cors
-#+end_src
-
-*** Using RASA instead for intent recognition
-Instead of querying grammar object you will need to query JSON object
-fetched from RASA service.
+1. You would need to have a "main menu" prompting a for an action that
+   user would like to do. There are two alternatives: "create a
+   meeting" and "who is X".
+2. In the latter case the input should be parsed and X should be
+   extracted and sent to the API.
+3. Based on the responce from the API, tell the user about the person,
+   and ask if they would like to meet them.
+4. If they would like to meet them, set the title of the meeting to
+   "meeting with X" and proceed with asking about the day of the
+   meeting (see the flowchart above).
 
 
 ** VG part. Improvements
@@ -139,7 +118,6 @@ fetched from RASA service.
 * Submission
 - G part :: submit three links:
   - link to your forked repo
-  - link to the repo with your RASA instance
   - URL of the deployed app
 - VG part :: include the report in your repository. Please name it
   ~lab2VG.pdf~ (can be also Markdown or Org-mode file, but not Word).
