@@ -6,12 +6,13 @@ xstate library). And also, if time permits, a bit of VoiceXML and
 React.
 
 Prerequisites: 
-- Browser :: Google Chrome, Microsoft Edge or Firefox Nightly (see
-  [[https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#browser_compatibility][speech recognition browser compatibility]])
-- NodeJS :: [[https://nodejs.org/en/download/][download and install NodeJS]] (the latest version)
+- NodeJS :: [[https://nodejs.org/en/download/][download and install NodeJS]] (the LTS version)
 - Text editor :: your editor of choice (e.g. Emacs or VS Code)
 - Github account :: you need to have one, and also know at least a
   little bit about git.
+
+Course repo: https://github.com/GU-CLASP/speechstate-lt2216  
+
   
 * System architecture
 ** Spoken dialogue system architecture
@@ -37,10 +38,8 @@ Prerequisites:
 
 ** Demo
 ** Caveats
-1. The current state of the system is "prototype". Be prepared for
-   changes and fixes from my side.
-2. You will need to learn JavaScript and its superset ---
-   TypeScript. Why? Because of the browser. And because of xstate.
+You will need to learn JavaScript and its superset ---
+TypeScript. Why? Because of the browser. And because of xstate.
    - It is not hard, you already know some fundamentals of Python. And
      you will only need fundamentals in this course.
    - It is very useful, because it is a new way of thinking. You’ll
@@ -89,6 +88,9 @@ document.writeln('Hello, world!');
 - no integers, 1 is the same as 1.0
 - ~NaN~ or "not a number". ~NaN~ is not equal to any value, including
   itself. You can check it with the function ~isNaN(n)~
+  #+begin_src js
+    parseInt("bla")
+  #+end_src
 - Strings. No character type.
   #+begin_example
   'j' + 's' === 'js'
@@ -109,7 +111,7 @@ Falsy values:
 - ~false~
 - ~null~
 - ~undefined~
-- ~'',~ ~0~ and ~NaN~
+- ~""~, ~0~ and ~NaN~
 
 All the rest are *true*.  
 *** Equality
@@ -210,6 +212,7 @@ ment. An object can inherit members from another object.
 for creating new objects and arrays. JavaScript literals were the
 inspiration for the JSON data interchange format.
 #+end_quote
+
 * Get started with TypeScript
 https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
 ** Minimal environment
@@ -250,7 +253,8 @@ interface User {
   id: number;
 }
 #+end_src
-*** Composing types
+
+*** Composing types (union types)
 #+begin_src js
 function getLength(obj: string | string[]) {
   return obj.length;
@@ -260,7 +264,10 @@ function getLength(obj: string | string[]) {
 #+begin_src js
 type StringArray = Array<string>;
 #+end_src
-
+*** Type assertions
+#+begin_src js
+export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = ({})
+#+end_src
 *** Exercise?
 
 ** Learning resources

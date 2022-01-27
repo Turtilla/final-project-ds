@@ -4,7 +4,7 @@ import * as ReactDOM from "react-dom";
 import { Machine, assign, actions, State } from "xstate";
 import { useMachine, asEffect } from "@xstate/react";
 import { inspect } from "@xstate/inspect";
-import { dmMachine } from "./dmAppointment";
+import { dmMachine } from "./dmColourChanger";
 
 import createSpeechRecognitionPonyfill from 'web-speech-cognitive-services/lib/SpeechServices/SpeechToText'
 import createSpeechSynthesisPonyfill from 'web-speech-cognitive-services/lib/SpeechServices/TextToSpeech';
@@ -253,7 +253,7 @@ function App() {
         actions: {
 
             changeColour: asEffect((context) => {
-                document.body.style.background = context.recResult[0].utterance ;
+                document.body.style.background = context.recResult[0].utterance;
                 /* console.log('Ready to receive a voice input.'); */
             }),
 
