@@ -38,14 +38,14 @@
    application.
 5. Run the project:
    #+begin_src sh
-   yarn run start
+   yarn start
    #+end_src
-6. Your browser will open the page http://localhost:3000/.
+6. Your browser will open the page http://localhost/speechstate-lt2216.
 7. Unblock the pop-up window to see the state. 
 
 ** Preflight step 3. Depoying the app
 1. Open ~package.json~ and change the value of ~homepage~ to
-   ~https://<Your_Github_Username>.github.io/<Your_Github_Repository>~
+   ~https://localhost/<your_github_repository>~
 2. Build and deploy the app:
    #+begin_src sh
    yarn run deploy

@@ -4,7 +4,7 @@ You will have 4 labs:
 
 |   | Title                               | Deadline |
 |---+-------------------------------------+----------|
-| 1 | Lab I. Dialogue  (see Canvas)       |          |
+| 1 | Lab I. Dialogue  (see Canvas)       | 11/2     |
 | 2 | [[labs/lab2.org][Lab II. Basic dialogue management]]   | 17/2     |
 | 3 | Lab III. Speech synthesis           |          |
 | 4 | Lab IV. NLU (see Canvas)            |          |

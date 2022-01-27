@@ -26,8 +26,6 @@ interface SDSContext {
     hapticInput: string;
     nluData: any;
     ttsAgenda: string;
-    query: string;
-    snippet: string;
     sessionId: string;
     tdmAll: any;
     tdmUtterance: string;
@@ -39,7 +37,7 @@ interface SDSContext {
     audioCtx: any;
 
     title: string;
-
+    snippet: string;
 }
 
 type SDSEvent =
