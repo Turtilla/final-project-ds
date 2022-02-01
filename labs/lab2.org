@@ -117,7 +117,7 @@ like to meet.
    report.
 
 * Submission
-- G part :: submit three links:
+- G part :: submit two links:
   - link to your forked repo
   - URL of the deployed app
 - VG part :: include the report in your repository. Please name it
