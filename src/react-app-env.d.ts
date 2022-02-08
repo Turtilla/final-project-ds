@@ -37,6 +37,8 @@ interface SDSContext {
     audioCtx: any;
 
     title: string;
+    category: string;
+    joke: string;
 }
 
 type SDSEvent =
