@@ -1,0 +1,106 @@
+#+OPTIONS: toc:t num:nil
+#+TITLE: Lab V. Advanced dialogue management
+
+#+BEGIN_EXAMPLE
+This version is preliminary and subject to change
+#+END_EXAMPLE
+
+* Part 1. Improving your voice interface
+In this part of the lab you will need to improve ~dmAppointment.ts~
+application from Lab II. Create a copy of it ~dmAppointmentPlus.ts~ and
+'route' ~index.tsx~ to it. Now you will need to implement some
+improvements.
+
+*Note:* try not to copy and paste the same code, use functions to abstract
+certain blocks.
+
+1. Make sure that system handles unexpected input (out-of-grammar situations). 
+2. A opportunity to say "help" at any point when system is recognising
+   something. You should provide a help message (anything you like)
+   and return the user to the state where they were before asking for
+   help.
+3. In a stepwise fashion change the formulations for your re-prompts
+   in case of noinput (ASR sends ~NOINPUT~) event and out-of-grammar
+   situations.
+4. If the user is silent and not reacting to 3 reprompts, return to
+   the idle state.
+5. Implement confidence threshold for *speech recognition* of user
+   inputs. The intended behaviour similar to one described in Lab IV
+   for intents.
+   - If :: the confidence for the top-ranked recognition hypothesis is
+     higher than threshold X
+   - then ::  assume that the speech recogniton is correct is correct
+     and proceed
+   - else :: ask the user whether the top-ranked recognition
+     hypothesis is what the user wants
+
+* Part 2. Intent recognition
+In this task you will need implement the intent-based home assistant
+robot from Lab IV.
+
+Feel free to design the interface to your own liking, but it does not
+need to be overly sophisticated. The aim of this part is to teach you
+how to handle RASA intents in XState (no pun intended :-).
+
+*** Creating RASA NLU service and updating the model
+1. You will need a [[https://www.heroku.com/home][Heroku account]]
+2. Deploy this template to Heroku:
+   https://github.com/just-ai/rasa-heroku-template
+3. Read the documentation for the template. It explains how to add the
+   desired intents and re-deploy model.
+4.  Enable CORS in the last line of ~server.sh~ in RASA-Heroku app:
+    #+begin_src sh
+    rasa run --enable-api --port $PORT --cors
+    #+end_src
+4. Deploy the updated model.
+
+*** Invoking RASA from xstate
+1. Use the invocation in order to get the result from RASA:
+   https://xstate.js.org/docs/guides/communication.html#invoking-promises
+   (also see Lab II).
+2. You will need to implement appropriate actions and transitions for
+   both ~onDone~ and ~onError~ events.
+
+*Note*: Heroku app will sleep after 30 minutes of not receiving any
+traffic. It will take a couple of minutes for it to wake up after the
+inactive period.
+
+ 
+
+
+
+
+* (VG part) Frame-based dialogue system
+Frame-based dialogue system allows a user to do is to provide
+information not only in a fixed number of pieces, but also in "one
+shot". For example, if someone has to order a merchandise, they might
+spell their address and their post number alltogether, without waiting
+the system to ask for each information.
+
+For example, in the case of a booking flight system, a user could fill
+the required "information slots" in many ways. For example, she could
+say in one utterance where she wants to go and when she wants to
+leave, or where she wants to go and from where she wants to leave, and
+so on. You need to handle these cases and make sure that the
+information is stored accordingly.
+
+Create a variant of ~dmAppointment.ts~ which will be able to behave
+similarly to [[https://www.w3.org/TR/voicexml20/#dml2.1.6][form interpretation algorithm (FIA)]] in VoiceXML. Namely, the
+variant should be able to:
+1. Recognise one-shot and incomplete requests, e.g. "create meeting
+   with Bob on Friday at noon", "create meeting with Bob on Friday",
+   "create meeting with Bob".
+2. If request is incomplete, system should only ask for the slots that
+   are missing. 
+3. The system should allow over-answering, e.g. it should be able to
+   understand "Bill on Friday" as an answer to the question "Who are
+   you meeting with?".
+
+*Note 1*: You might find the orthogonal states useful for this task.
+
+*Note 2*: Some behaviour might be tricky to implement, so partial
+solutions are accepted. Please comment on your design choices.
+
+* Submission
+Redeploy your app to Github pages and submit two links: 1) Github
+pages URL and 2) URL of your repository.

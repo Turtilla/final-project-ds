@@ -21,7 +21,7 @@ inspect({
 });
 
 
-const defaultPassivity = 10
+const defaultPassivity = 3
 
 const machine = Machine<SDSContext, any, SDSEvent>({
     id: 'root',
@@ -126,7 +126,8 @@ const machine = Machine<SDSContext, any, SDSEvent>({
                         },
                         RECOGNISED: 'idle',
                         SELECT: 'idle',
-                        CLICK: '.pause'
+                        CLICK: '.pause',
+                        RECSTOP: 'idle'
                     },
                     states: {
                         noinput: {

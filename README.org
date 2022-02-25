@@ -6,6 +6,6 @@ You will have 4 labs:
 |---+-------------------------------------+----------|
 | 1 | Lab I. Dialogue  (see Canvas)       | 11/2     |
 | 2 | [[labs/lab2.org][Lab II. Basic dialogue management]]   | 17/2     |
-| 3 | [[labs/lab3.org][Lab III. Speech synthesis]]           | 24/2     |
-| 4 | Lab IV. NLU (see Canvas)            |          |
-| 5 | Lab V. Advanced dialogue management |          |
+| 3 | [[labs/lab3.org][Lab III. Speech synthesis]]           | 2/3      |
+| 4 | Lab IV. NLU (see Canvas)            | 4/3      |
+| 5 | [[labs/lab5.org][Lab V. Advanced dialogue management]] | 11/3     |
