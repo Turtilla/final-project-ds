@@ -23,7 +23,7 @@ certain blocks.
    in case of noinput (ASR sends ~NOINPUT~) event and out-of-grammar
    situations.
 4. If the user is silent and not reacting to 3 reprompts, return to
-   the idle state.
+   the ~init~ state.
 5. Implement confidence threshold for *speech recognition* of user
    inputs. The intended behaviour similar to one described in Lab IV
    for intents.
@@ -40,7 +40,7 @@ robot from Lab IV.
 
 Feel free to design the interface to your own liking, but it does not
 need to be overly sophisticated. The aim of this part is to teach you
-how to handle RASA intents in XState (no pun intended :-).
+how to handle RASA intents in XState.
 
 *** Creating RASA NLU service and updating the model
 1. You will need a [[https://www.heroku.com/home][Heroku account]]
@@ -58,15 +58,27 @@ how to handle RASA intents in XState (no pun intended :-).
 1. Use the invocation in order to get the result from RASA:
    https://xstate.js.org/docs/guides/communication.html#invoking-promises
    (also see Lab II).
-2. You will need to implement appropriate actions and transitions for
+2. You will need to parse the input and get the intent using this API
+   method:
+   https://rasa.com/docs/rasa/pages/http-api#operation/parseModelMessage
+3. You will need to implement appropriate actions and transitions for
    both ~onDone~ and ~onError~ events.
 
 *Note*: Heroku app will sleep after 30 minutes of not receiving any
 traffic. It will take a couple of minutes for it to wake up after the
 inactive period.
 
- 
-
+*Hint*: You might find this sample request helpful (change ~rasaurl~ to
+ the URL of the app that you have deployed to Heroku):
+#+begin_src js
+  const rasaurl = 'https://rasa-nlu-api-00.herokuapp.com/model/parse'
+  const nluRequest = (text: string) =>
+    fetch(new Request(rasaurl, {
+        method: 'POST',
+        body: `{"text": "${text}"}`
+    }))
+        .then(data => data.json());
+#+end_src
 
 
 
