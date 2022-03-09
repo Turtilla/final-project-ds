@@ -50,7 +50,7 @@ how to handle RASA intents in XState.
    desired intents and re-deploy model.
 4.  Enable CORS in the last line of ~server.sh~ in RASA-Heroku app:
     #+begin_src sh
-    rasa run --enable-api --port $PORT --cors
+    rasa run --enable-api --port $PORT --cors '*'
     #+end_src
 4. Deploy the updated model.
 
