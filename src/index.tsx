@@ -4,7 +4,7 @@ import * as ReactDOM from "react-dom";
 import { Machine, assign, actions, State } from "xstate";
 import { useMachine, asEffect } from "@xstate/react";
 import { inspect } from "@xstate/inspect";
-import { dmMachine } from "./dmColourChanger";
+import { dmMachine } from "./dmMillionaireNew";
 
 import createSpeechRecognitionPonyfill from 'web-speech-cognitive-services/lib/SpeechServices/SpeechToText'
 import createSpeechSynthesisPonyfill from 'web-speech-cognitive-services/lib/SpeechServices/TextToSpeech';
@@ -21,7 +21,7 @@ inspect({
 });
 
 
-const defaultPassivity = 3
+const defaultPassivity = 20
 
 const machine = Machine<SDSContext, any, SDSEvent>({
     id: 'root',
@@ -86,7 +86,7 @@ const machine = Machine<SDSContext, any, SDSEvent>({
                                 if (process.env.REACT_APP_TTS_VOICE) {
                                     voiceRe = RegExp(process.env.REACT_APP_TTS_VOICE, 'u')
                                 }
-                                const voice = voices.find((v: any) => voiceRe.test(v.name))!
+                                const voice = voices.find(voice => /Brandon/u.test(voice.name))! //voices.find((v: any) => voiceRe.test(v.name))! - this was based on the solution linked by Nadina Suditu
                                 if (voice) {
                                     context.voice = voice
                                     callback('TTS_READY')
@@ -127,7 +127,6 @@ const machine = Machine<SDSContext, any, SDSEvent>({
                         RECOGNISED: 'idle',
                         SELECT: 'idle',
                         CLICK: '.pause',
-                        RECSTOP: 'idle'
                     },
                     states: {
                         noinput: {
@@ -135,7 +134,7 @@ const machine = Machine<SDSContext, any, SDSEvent>({
                                 'recStart',
                                 send(
                                     { type: 'TIMEOUT' },
-                                    { delay: (context) => (1000 * (context.tdmPassivity || defaultPassivity)), id: 'timeout' }
+                                    { delay: (context) => (500 * (context.tdmPassivity || defaultPassivity)), id: 'timeout' }
                                 )],
                             on: {
                                 TIMEOUT: '#root.asrtts.idle',
@@ -208,11 +207,11 @@ const ReactiveButton = (props: Props): JSX.Element => {
             promptText = promptText || 'Speaking...'
             break;
         case props.state.matches({ dm: 'idle' }):
-            promptText = "Click to start!"
+            promptText = "Click to play Who Wants to be a Millionaire!"
             circleClass = "circle-click"
             break;
         case props.state.matches({ dm: 'init' }):
-            promptText = "Click to start!"
+            promptText = "Click to play Who Wants to be a Millionaire!"
             circleClass = "circle-click"
             break;
         default:
