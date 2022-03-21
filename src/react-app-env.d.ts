@@ -133,8 +133,6 @@ interface SDSContext {
     incorrAnswerTwo13: string;
     incorrAnswerThree13: string;
 
-    // figure out how to use answers
-
     safePoint: string;
     currentMoney: string;
     remainingQuestions: number;
