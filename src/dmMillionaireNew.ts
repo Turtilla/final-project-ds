@@ -55,11 +55,11 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = ({
                 explain: {
                     entry: say(`The goal of the game is to answer 12 questions correctly. Answering each question increases your reward. You can choose to walk away with your winnings after answering a question correctly.
                                 Answering a question incorrectly means you will only receive money from safety steps: $1000 at question 2 and $50000 at question 7. To help you you have 2 lifelines. The lifelines include
-                                fifty-fifty, which will remove two of the incorrect answers and switch the question, which will change the question altogether. You can fifty-fifty a switched question, but you cannot switch a
-                                question you used fifty-fifty on.
+                                fifty-fifty, which will remove two of the incorrect answers and switch the question, which will change the question altogether. 
                                 You can answer the questions by saying answer 1 or first answer, answer 2 or second answer, etc. It is important that you include the number so that it is easy for the system to understand.
                                 You can ask to use lifelines by saying the name of the lifeline. You can ask for the question to be repeated by saying repeat. Between the questions you can quit the game by saying quit. You can
                                 walk away with your winnings by saying walk away. You can inquire about the current question number by asking "how much money do I have?", and you can also ask "how many questions are left?".
+                                You can ask for help to hear this message again.
                                 Make sure to speak clearly and in phrases that the game can understand.`),
                     on: { ENDSPEECH: '#root.dm.playMillionaire.hist' },
                 }
