@@ -1029,7 +1029,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = ({
                         },
                         nomatch: {
                             entry: say("Sorry, I did not get that."),
-                            on: { ENDSPEECH: '#root.dm.playMillionaire.competitionQuestion' }
+                            on: { ENDSPEECH: '#root.dm.playMillionaire.extraQuestion' }
                         },
                         // check if sure
                         check: {
@@ -1077,7 +1077,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = ({
                                             context.correctAnswers[12] !== context.allAnswersTotal[12][Number(context.uncertainAnswer) - 1],
                                     },
                                     {
-                                        target: '#root.dm.playMillionaire.competitionQuestion', // change
+                                        target: '#root.dm.playMillionaire.extraQuestion', // change
                                         cond: (context) => "negation" in (ans_grammar[context.recResult[0].utterance] || {}),
                                         actions: assign({ counter: (context) => context.counter + 1 }),
                                     },
